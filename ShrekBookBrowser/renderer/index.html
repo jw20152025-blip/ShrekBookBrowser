@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: https: http:; connect-src 'self' http://127.0.0.1:8787 https: http:;">
+  <title>ShrekBook Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <header class="chrome">
+      <div class="tab-strip" id="tab-strip"></div>
+      <button id="new-tab" class="icon-button" title="New tab">+</button>
+      <div class="toolbar-row">
+        <button id="back" class="icon-button" title="Back">←</button>
+        <button id="forward" class="icon-button" title="Forward">→</button>
+        <button id="reload" class="icon-button" title="Reload">↻</button>
+        <button id="home" class="icon-button" title="Home">⌂</button>
+        <div class="omnibox-shell">
+          <span class="omnibox-icon">⌕</span>
+          <input id="omnibox" autocomplete="off" spellcheck="false" placeholder="Search the web or enter a URL">
+          <button id="focus-mode" class="mini-button" title="Toggle focus mode">◈</button>
+        </div>
+        <button id="command" class="icon-button" title="Command palette">⌘K</button>
+        <button id="customize" class="icon-button" title="Customize">☷</button>
+      </div>
+    </header>
+
+    <main id="home-view" class="home-view">
+      <section class="hero-card">
+        <div class="hero-mark">SB</div>
+        <div>
+          <div class="eyebrow">SHREKBOOK BROWSER</div>
+          <h1>Your web, turned into knowledge.</h1>
+          <p>Search with ShrekSearch, then open results as clean cards instead of a wall of links.</p>
+        </div>
+      </section>
+
+      <section class="search-card">
+        <div class="search-box-large">
+          <span>⌕</span>
+          <input id="home-search" autocomplete="off" placeholder="Ask ShrekSearch anything…">
+          <button id="home-search-button">Search</button>
+        </div>
+        <div class="quick-actions">
+          <button data-query="latest technology">Technology</button>
+          <button data-query="science">Science</button>
+          <button data-query="programming">Programming</button>
+          <button data-query="history">History</button>
+        </div>
+      </section>
+
+      <section id="results" class="results-grid"></section>
+
+      <section class="feature-grid">
+        <article class="feature-card"><span>▦</span><strong>Knowledge Cards</strong><p>Title, summary, source, key terms and quick actions in one neat unit.</p></article>
+        <article class="feature-card"><span>⬡</span><strong>Spaces</strong><p>Keep research, schoolwork, coding and normal browsing in separate tab worlds.</p></article>
+        <article class="feature-card"><span>✦</span><strong>Personalize Everything</strong><p>Compact tabs, sidebars, themes and layout presets live in your settings.</p></article>
+      </section>
+    </main>
+
+    <aside id="custom-panel" class="custom-panel hidden">
+      <div class="panel-head"><strong>Customize</strong><button id="close-custom">×</button></div>
+      <label>Theme<select id="theme-select"><option value="midnight">Midnight</option><option value="paper">Paper</option><option value="forest">Forest</option></select></label>
+      <label><span>Compact tabs</span><input id="compact-toggle" type="checkbox"></label>
+      <label><span>Scraper search</span><input id="scraper-toggle" type="checkbox"></label>
+      <button id="check-update" class="wide-button">Check for updates</button>
+      <button id="about-button" class="wide-button">About</button>
+    </aside>
+
+    <div id="command-palette" class="command-palette hidden">
+      <input id="command-input" placeholder="Type a command…">
+      <button data-command="new-tab">New tab</button>
+      <button data-command="focus">Focus mode</button>
+      <button data-command="devtools">DevTools</button>
+      <button data-command="customize">Customize</button>
+      <button data-command="reload">Reload</button>
+    </div>
+
+    <div id="status" class="status"></div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>

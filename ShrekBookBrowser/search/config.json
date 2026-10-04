@@ -1,0 +1,8 @@
+{
+  "maxPages": 250,
+  "maxDepth": 2,
+  "sameHostOnly": true,
+  "requestTimeoutMs": 12000,
+  "userAgent": "ShrekBookBot/0.1 (+https://shrekbook.bbroot.com)",
+  "minWordLength": 2
+}

@@ -1,0 +1,115 @@
+[
+  "https://developer.mozilla.org/en-US/docs/Web",
+  "https://developer.mozilla.org/en-US/docs/Web/HTML",
+  "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  "https://developer.mozilla.org/en-US/docs/Web/API",
+  "https://developer.mozilla.org/en-US/docs/Learn",
+
+  "https://docs.python.org/3/",
+  "https://docs.python.org/3/tutorial/",
+  "https://docs.python.org/3/library/",
+  "https://peps.python.org/",
+
+  "https://nodejs.org/docs/latest/api/",
+  "https://nodejs.org/en/learn",
+  "https://expressjs.com/",
+  "https://expressjs.com/en/starter/installing.html",
+
+  "https://www.electronjs.org/docs/latest/",
+  "https://www.electronjs.org/docs/latest/tutorial",
+  "https://www.electronjs.org/docs/latest/api",
+
+  "https://git-scm.com/doc",
+  "https://git-scm.com/book/en/v2",
+
+  "https://docs.github.com/en",
+  "https://docs.github.com/en/get-started",
+  "https://docs.github.com/en/repositories",
+  "https://docs.github.com/en/actions",
+
+  "https://supabase.com/docs",
+  "https://supabase.com/docs/guides",
+  "https://supabase.com/docs/reference",
+
+  "https://huggingface.co/docs",
+  "https://huggingface.co/docs/hub",
+  "https://huggingface.co/docs/transformers",
+
+  "https://platform.openai.com/docs",
+  "https://platform.openai.com/docs/guides",
+  "https://platform.openai.com/docs/api-reference",
+
+  "https://docs.unity3d.com/Manual/",
+  "https://docs.unity3d.com/Manual/scripting.html",
+  "https://docs.unity3d.com/Manual/creating-scripts.html",
+
+  "https://www.w3.org/",
+  "https://www.w3.org/TR/",
+  "https://www.w3.org/WAI/",
+  "https://www.w3.org/standards/webdesign/",
+
+  "https://web.dev/",
+  "https://web.dev/learn/",
+  "https://web.dev/performance/",
+
+  "https://www.rfc-editor.org/",
+  "https://www.rfc-editor.org/rfc-index.html",
+
+  "https://en.wikipedia.org/wiki/Computer_science",
+  "https://en.wikipedia.org/wiki/Computer_programming",
+  "https://en.wikipedia.org/wiki/Algorithm",
+  "https://en.wikipedia.org/wiki/Artificial_intelligence",
+  "https://en.wikipedia.org/wiki/Computer_network",
+  "https://en.wikipedia.org/wiki/Operating_system",
+  "https://en.wikipedia.org/wiki/Database",
+  "https://en.wikipedia.org/wiki/Internet",
+
+  "https://stackoverflow.com/questions",
+  "https://stackoverflow.com/tags/javascript/info",
+  "https://stackoverflow.com/tags/python/info",
+  "https://stackoverflow.com/tags/c-sharp/info",
+  "https://stackoverflow.com/tags/node.js/info",
+
+  "https://pytorch.org/docs/stable/",
+  "https://numpy.org/doc/stable/",
+  "https://pandas.pydata.org/docs/",
+  "https://matplotlib.org/stable/",
+  "https://scikit-learn.org/stable/",
+
+  "https://www.raspberrypi.com/documentation/",
+  "https://docs.arduino.cc/",
+  "https://docs.docker.com/",
+  "https://kubernetes.io/docs/",
+
+  "https://www.gnu.org/software/bash/manual/",
+  "https://learn.microsoft.com/en-us/powershell/",
+  "https://learn.microsoft.com/en-us/windows/apps/",
+  "https://learn.microsoft.com/en-us/dotnet/",
+  "https://learn.microsoft.com/en-us/cpp/",
+
+  "https://docs.npmjs.com/",
+  "https://pnpm.io/",
+  "https://yarnpkg.com/getting-started",
+
+  "https://www.json.org/",
+  "https://yaml.org/spec/",
+  "https://www.sqlite.org/docs.html",
+  "https://www.postgresql.org/docs/",
+
+  "https://owasp.org/www-project-top-ten/",
+  "https://cheatsheetseries.owasp.org/",
+  "https://developer.mozilla.org/en-US/docs/Web/Security",
+
+  "https://www.khanacademy.org/computing",
+  "https://cs50.harvard.edu/",
+  "https://ocw.mit.edu/search/?d=Electrical%20Engineering%20and%20Computer%20Science",
+
+  "https://arxiv.org/",
+  "https://paperswithcode.com/",
+  "https://www.sciencedirect.com/topics/computer-science/computer-science",
+
+  "https://www.gnu.org/licenses/",
+  "https://choosealicense.com/",
+  "https://opensource.org/licenses/"
+]
