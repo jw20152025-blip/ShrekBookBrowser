@@ -712,6 +712,12 @@ function configureUpdater() {
     repo  = ShrekBookBrowser
   */
 
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'jw20152025-blip',
+    repo: 'ShrekBookBrowser'
+  });
+
   autoUpdater.autoDownload = true;
   autoUpdater.autoInstallOnAppQuit = true;
 
