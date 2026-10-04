@@ -1,6 +1,6 @@
 {
   "name": "shrekbook-browser",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ShrekBook Browser — a customizable Chromium browser with ShrekSearch knowledge cards.",
   "main": "app/main.js",
   "author": "ShrekBook",
