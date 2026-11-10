@@ -1,78 +1,31 @@
 # ShrekBook Browser
 
-A customizable Chromium desktop browser built for ShrekBook, with a first-class ShrekSearch knowledge-card layer and a crawler you control.
+Customizable Electron/Chromium browser with a ShrekSearch knowledge workspace.
 
-## What makes it different
+## Features
+- Knowledge Cards display source domains, descriptions, relevance, tags and source actions.
+- Page Summarizer fetches readable page text and creates a local extractive overview with key takeaways. It requires no paid API key. This is local text analysis, not a hosted generative LLM.
+- Personalization: Midnight, Paper and Forest themes; five accent colors; comfortable/compact density; rounded/soft/sharp cards; compact tabs and optional home artwork. Preferences persist in Electron user data.
+- Chromium tabs remain real Electron WebContentsViews.
+- ShrekSearch crawler/index, Windows installer and portable build configuration remain included.
 
-- **Knowledge Cards:** ShrekSearch results arrive as compact source cards with summaries, tags, snippets and actions.
-- **Web + Search dual mode:** Normal browsing remains normal browsing; ShrekSearch is the knowledge layer.
-- **Spaces-ready architecture:** Each tab is a real Chromium `WebContentsView`, making later workspace/sidebar features straightforward.
-- **Customization:** Midnight/Paper/Forest themes, compact tabs, focus mode and command palette are included from day one.
-- **Your scraper:** `search/crawler.js` crawls your configured seeds, respects `robots.txt`, extracts useful page content and builds `search/index.json`.
-- **Installer + updater:** Windows NSIS and portable builds are configured with electron-builder; packaged builds use electron-updater.
+## Requirements
+Windows 10/11, Node.js 20.19+ and npm.
 
-## 1. Install
-
-Requirements: Node.js 20+ and npm.
-
+## Run
+From the nested `ShrekBookBrowser` directory:
 ```powershell
-.\scripts\setup.ps1
-```
-
-## 2. Configure your search universe
-
-Edit `search/seeds.json` to the sites you want ShrekSearch to index. Then edit `search/config.json` for crawl depth/page limits.
-
-Run:
-
-```powershell
-.\scripts\crawl.ps1
-```
-
-The crawler stores its index at `search/index.json`.
-
-## 3. Run the browser
-
-```powershell
-.\scripts\dev.ps1
-```
-
-Or:
-
-```powershell
+npm install
 npm run dev
 ```
 
-## 4. Build the Windows app
-
+## Build
 ```powershell
-.\scripts\build.ps1
+npm run build
+npm run build:portable
 ```
 
-Artifacts appear in `dist/`.
+## Search index
+Configure `search/seeds.json` and `search/config.json`, then run `npm run search:crawl`. The local API listens on 127.0.0.1:8787 and exposes `/api/health`, `/api/search`, `/api/scrape` and `/api/crawl`.
 
-## 5. Turn on automatic updates
-
-Edit the `build.publish` GitHub owner/repo values in `package.json`. Create releases with a GitHub token:
-
-```powershell
-$env:GH_TOKEN = "YOUR_TOKEN"
-.\scripts\release.ps1
-```
-
-After the app is installed from a published release, it checks for updates automatically and installs them on quit.
-
-## Search API
-
-The local search service listens on `127.0.0.1:8787`.
-
-- `GET /api/health`
-- `GET /api/search?q=programming&limit=12`
-- `GET /api/scrape?url=https://example.com`
-- `POST /api/crawl`
-
-The browser's `settings.searchUrl` can also be changed to your hosted ShrekSearch API later, which lets you move the crawler/index off the desktop without changing the UI.
-
-## Next expansion modules
-
-The clean next layer is a true workspace system, split-pane research mode, per-site reading mode, tab groups, bookmarks/history, a download shelf, custom start-page widgets, keyboard remapping, site permissions, extensions, and a ShrekAI research assistant that can cite the card sources instead of inventing them.
+The summarizer ranks sentences from fetched page text and assembles an overview and takeaways. It does not claim to be a generative AI model or invent facts beyond the source.
