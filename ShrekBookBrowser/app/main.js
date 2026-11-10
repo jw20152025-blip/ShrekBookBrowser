@@ -11,6 +11,7 @@ const {
 const path = require('path');
 const fs = require('fs');
 const { autoUpdater } = require('electron-updater');
+const { createLibraryStore } = require('./library');
 
 const APP_UI_HEIGHT = 118;
 const MIN_WEB_WIDTH = 420;
@@ -20,21 +21,11 @@ let mainWindow = null;
 let selectedTabId = null;
 let nextTabId = 1;
 let searchServer = null;
+let libraryStore = null;
 const tabStore = new Map();
 
-let settings = {
-  theme: 'midnight',
-  compactTabs: false,
-  sidebar: true,
-  homeUrl: 'shrek://home',
-  searchUrl: 'http://127.0.0.1:8787/api/search',
-  scraperEnabled: true,
-  startupRestore: true,
-  accent: 'mint',
-  density: 'comfortable',
-  roundness: 'rounded',
-  showArtwork: true
-};
+const DEFAULT_SETTINGS = require('../data/default-settings.json');
+let settings = { ...DEFAULT_SETTINGS };
 
 /* =========================================================
    SETTINGS
@@ -659,6 +650,17 @@ ipcMain.handle(
   }
 );
 
+ipcMain.handle('browser:crawl', async () => {
+  const response = await fetch('http://127.0.0.1:' + SEARCH_PORT + '/api/crawl', { method: 'POST' });
+  if (!response.ok) throw new Error('ShrekSearch returned ' + response.status);
+  return response.json();
+});
+ipcMain.handle('browser:get-library', () => libraryStore.list());
+ipcMain.handle('browser:save-bookmark', (_event, entry) => libraryStore.saveBookmark(entry));
+ipcMain.handle('browser:remove-bookmark', (_event, id) => libraryStore.removeBookmark(id));
+ipcMain.handle('browser:save-card', (_event, entry) => libraryStore.saveCard(entry));
+ipcMain.handle('browser:remove-card', (_event, id) => libraryStore.removeCard(id));
+
 ipcMain.handle(
   'browser:open-external',
   (_event, url) =>
@@ -986,6 +988,7 @@ ipcMain.handle(
 
 app.whenReady().then(() => {
   loadSettings();
+  libraryStore = createLibraryStore(app.getPath('userData'));
 
   if (settings.scraperEnabled) {
     startSearchServer();

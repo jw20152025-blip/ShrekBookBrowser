@@ -1,21 +1,44 @@
 # ShrekBook Browser
 
-Customizable Electron/Chromium browser with a ShrekSearch knowledge workspace.
+A research-first Electron/Chromium browser built around the local ShrekSearch index.
 
 ## Features
-- Knowledge Cards display source domains, descriptions, relevance, tags and source actions.
-- Page Summarizer fetches readable page text and creates a local extractive overview with key takeaways. It requires no paid API key. This is local text analysis, not a hosted generative LLM.
-- Personalization: Midnight, Paper and Forest themes; five accent colors; comfortable/compact density; rounded/soft/sharp cards; compact tabs and optional home artwork. Preferences persist in Electron user data.
-- Chromium tabs remain real Electron WebContentsViews.
-- ShrekSearch crawler/index, Windows installer and portable build configuration remain included.
+- ShrekSearch knowledge cards with source domains, descriptions, tags and relative relevance.
+- A persistent research library for saved cards and bookmarks.
+- Page summaries that extract key sentences locally. This is transparent extractive text analysis, not a hosted generative model; no paid API is required.
+- A browser control to start a ShrekSearch crawl.
+- Midnight, Paper and Forest themes; five accent colors; comfortable/compact density; rounded/soft/sharp corners; compact tabs and optional artwork.
+- Electron tabs, command palette, keyboard shortcuts, updater and Windows build scripts.
 
-## Requirements
-Windows 10/11, Node.js 20.19+ and npm.
+## Structure
+```text
+ShrekBookBrowser/
+├── app/
+│   ├── main.js
+│   ├── preload.js
+│   └── library.js
+├── assets/
+├── data/
+│   ├── default-settings.json
+│   ├── bookmarks.json
+│   └── knowledge/
+│       ├── README.md
+│       └── cards.json
+├── renderer/
+│   ├── index.html
+│   ├── renderer.js
+│   └── styles.css
+├── search/
+├── scripts/
+├── tools/
+├── package.json
+└── package-lock.json
+```
 
 ## Run
-From the nested `ShrekBookBrowser` directory:
+Use Node.js 20.19+ and npm. From this nested directory:
 ```powershell
-npm install
+npm ci
 npm run dev
 ```
 
@@ -25,7 +48,11 @@ npm run build
 npm run build:portable
 ```
 
-## Search index
-Configure `search/seeds.json` and `search/config.json`, then run `npm run search:crawl`. The local API listens on 127.0.0.1:8787 and exposes `/api/health`, `/api/search`, `/api/scrape` and `/api/crawl`.
+## ShrekSearch
+The local service listens on 127.0.0.1:8787 and exposes `/api/health`, `/api/search`, `/api/scrape`, and `POST /api/crawl`. Configure `search/seeds.json` and `search/config.json` before crawling.
 
-The summarizer ranks sentences from fetched page text and assembles an overview and takeaways. It does not claim to be a generative AI model or invent facts beyond the source.
+## Personal data
+The repository's `data/` folder contains packaged defaults. Writable settings and saved research are kept in Electron's per-user application data directory so updates do not overwrite them: `browser-settings.json`, `library/bookmarks.json`, and `library/knowledge-cards.json`.
+
+## Summary limitations
+The built-in summarizer ranks and extracts representative sentences from page text. It is local and free, but it is not a neural language model and does not generate new explanations. Check summaries against the linked source.

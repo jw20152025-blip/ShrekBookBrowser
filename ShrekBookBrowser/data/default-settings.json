@@ -1,0 +1,6 @@
+{
+  "theme":"midnight","compactTabs":false,"sidebar":true,
+  "homeUrl":"shrek://home","searchUrl":"http://127.0.0.1:8787/api/search",
+  "scraperEnabled":true,"startupRestore":true,"accent":"mint",
+  "density":"comfortable","roundness":"rounded","showArtwork":true
+}

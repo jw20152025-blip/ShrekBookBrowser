@@ -1,7 +1,7 @@
 {
   "name": "shrekbook-browser",
-  "version": "0.1.2",
-  "description": "ShrekBook Browser — a customizable Chromium browser with ShrekSearch knowledge cards.",
+  "version": "0.2.0",
+  "description": "ShrekBook Browser — a research-first Chromium browser with ShrekSearch knowledge cards, summaries and a personal library.",
   "main": "app/main.js",
   "author": "ShrekBook",
   "license": "MIT",
@@ -40,6 +40,7 @@
       "renderer/**/*",
       "search/**/*",
       "assets/**/*",
+      "data/**/*",
       "package.json"
     ],
     "directories": {
