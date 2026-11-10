@@ -29,7 +29,11 @@ let settings = {
   homeUrl: 'shrek://home',
   searchUrl: 'http://127.0.0.1:8787/api/search',
   scraperEnabled: true,
-  startupRestore: true
+  startupRestore: true,
+  accent: 'mint',
+  density: 'comfortable',
+  roundness: 'rounded',
+  showArtwork: true
 };
 
 /* =========================================================
@@ -639,6 +643,20 @@ ipcMain.handle(
   'browser:search',
   (_event, query, options) =>
     search(query, options)
+);
+
+ipcMain.handle(
+  'browser:scrape',
+  async (_event, rawUrl) => {
+    let target;
+    try { target = new URL(String(rawUrl || '')); }
+    catch { throw new Error('Please provide a valid webpage URL.'); }
+    if (!['http:', 'https:'].includes(target.protocol)) throw new Error('Only HTTP and HTTPS pages can be summarized.');
+    const endpoint = 'http://127.0.0.1:' + SEARCH_PORT + '/api/scrape?url=' + encodeURIComponent(target.toString());
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error('Page reader returned ' + response.status);
+    return response.json();
+  }
 );
 
 ipcMain.handle(
