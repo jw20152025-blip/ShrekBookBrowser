@@ -1,7 +1,7 @@
 {
   "name": "shrekbook-browser",
-  "version": "0.2.0",
-  "description": "ShrekBook Browser — a research-first Chromium browser with ShrekSearch knowledge cards, summaries and a personal library.",
+  "version": "0.3.0",
+  "description": "ShrekBook Browser — a redesigned research workspace for browsing, ShrekSearch, page briefs, knowledge cards and a personal library.",
   "main": "app/main.js",
   "author": "ShrekBook",
   "license": "MIT",
