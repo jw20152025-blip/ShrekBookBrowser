@@ -1,58 +1,45 @@
-# ShrekBook Browser
+# ShrekBook Browser 0.3.0
 
-A research-first Electron/Chromium browser built around the local ShrekSearch index.
+A research-first desktop browser built with Electron. ShrekBook Browser combines Chromium browsing with a local ShrekSearch index, knowledge cards, page briefs, bookmarks and a personal research library.
 
-## Features
-- ShrekSearch knowledge cards with source domains, descriptions, tags and relative relevance.
-- A persistent research library for saved cards and bookmarks.
-- Page summaries that extract key sentences locally. This is transparent extractive text analysis, not a hosted generative model; no paid API is required.
-- A browser control to start a ShrekSearch crawl.
-- Midnight, Paper and Forest themes; five accent colors; comfortable/compact density; rounded/soft/sharp corners; compact tabs and optional artwork.
-- Electron tabs, command palette, keyboard shortcuts, updater and Windows build scripts.
+## Run on Windows
 
-## Structure
-```text
-ShrekBookBrowser/
-├── app/
-│   ├── main.js
-│   ├── preload.js
-│   └── library.js
-├── assets/
-├── data/
-│   ├── default-settings.json
-│   ├── bookmarks.json
-│   └── knowledge/
-│       ├── README.md
-│       └── cards.json
-├── renderer/
-│   ├── index.html
-│   ├── renderer.js
-│   └── styles.css
-├── search/
-├── scripts/
-├── tools/
-├── package.json
-└── package-lock.json
-```
+Use Node.js 20.19 or newer. Open PowerShell in this folder (the folder containing this file), then run:
 
-## Run
-Use Node.js 20.19+ and npm. From this nested directory:
 ```powershell
 npm ci
 npm run dev
 ```
 
+If dependencies are already installed, start directly with `npm run dev`.
+
 ## Build
+
 ```powershell
 npm run build
 npm run build:portable
 ```
 
+Build output is written to `dist/`.
+
+## Included systems
+
+- Multi-tab Chromium browsing with address bar, navigation controls and keyboard shortcuts.
+- Local ShrekSearch service on `127.0.0.1:8787`.
+- Search results presented as knowledge cards.
+- Local page briefs that extract representative sentences from a readable page.
+- Device-local bookmarks and saved knowledge cards.
+- Appearance controls for Midnight, Paper and Forest themes, accent colours and compact density.
+- Persistent settings and research data stored in Electron's user-data directory.
+
 ## ShrekSearch
-The local service listens on 127.0.0.1:8787 and exposes `/api/health`, `/api/search`, `/api/scrape`, and `POST /api/crawl`. Configure `search/seeds.json` and `search/config.json` before crawling.
 
-## Personal data
-The repository's `data/` folder contains packaged defaults. Writable settings and saved research are kept in Electron's per-user application data directory so updates do not overwrite them: `browser-settings.json`, `library/bookmarks.json`, and `library/knowledge-cards.json`.
+The local search service exposes `/api/health`, `/api/search`, `/api/scrape` and `POST /api/crawl`. Configure the crawler's seed and policy files under `search/` before crawling. The crawler follows its configured limits and robots rules.
 
-## Summary limitations
-The built-in summarizer ranks and extracts representative sentences from page text. It is local and free, but it is not a neural language model and does not generate new explanations. Check summaries against the linked source.
+## Data and privacy
+
+Settings, search index data, bookmarks and knowledge cards are stored locally in Electron's per-user application data directory. They are not written into the source repository.
+
+## Page briefs
+
+Page briefs are local extractive summaries, not a hosted or neural generative AI model. They select representative sentences from page text. Always verify important details against the original source.
