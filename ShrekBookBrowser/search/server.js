@@ -95,7 +95,7 @@ const server = http.createServer(async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   try {
     const url = new URL(req.url, origin);
-    if (url.pathname === '/api/health') return send(res, 200, { ok: true, index: readIndex().count || 0 });
+    if (url.pathname === '/api/health') { const index = readIndex(); return send(res, 200, { ok: true, indexedPages: Array.isArray(index.pages) ? index.pages.length : 0, generatedAt: index.generatedAt || null }); }
     if (url.pathname === '/api/search') {
       return send(res, 200, search(url.searchParams.get('q') || '', url.searchParams.get('limit')));
     }

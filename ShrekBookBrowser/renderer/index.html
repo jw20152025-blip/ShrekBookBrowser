@@ -1,12 +1,129 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;connect-src 'self' http://127.0.0.1:8787 https:"><title>ShrekBook Browser</title><link rel="stylesheet" href="styles.css"></head>
-<body><header class="chrome"><div class="tabbar"><div class="brand"><b>SB</b><span>SHREKBOOK</span></div><div id="tab-strip"></div><button id="new-tab" class="icon">＋</button></div><nav><div class="nav-actions"><button id="back" class="icon">←</button><button id="forward" class="icon">→</button><button id="reload" class="icon">↻</button></div><div class="address"><span>◈</span><input id="omnibox" placeholder="Search the web or enter an address"><button id="go">Go ↗</button></div><button id="library-button" class="tool">▤ Library</button><button id="customize" class="icon">⚙</button><button id="command" class="icon">⌘K</button></nav></header>
-<main id="home-view"><aside class="sidebar"><div class="side-label">WORKSPACE</div><button class="side-link active" data-view="discover">⌂ <span>Discover</span></button><button class="side-link" data-view="library">▤ <span>My library</span><em id="saved-count">0</em></button><div class="side-label spaced">SHREKSEARCH</div><div class="status"><i id="status-dot"></i><span><b id="status-title">Search index</b><small id="status-text">Connecting…</small></span></div><button id="crawl" class="side-link">↻ <span>Refresh index</span></button><div class="side-bottom"><b>Research mode</b><p>Find sources. Save ideas. Connect what you learn.</p><small>SHREKBOOK BROWSER · <span id="version">0.3</span></small></div></aside>
-<section class="content"><section id="discover-view"><div class="hero"><div class="eyebrow">✦ YOUR RESEARCH WORKSPACE</div><h1>Curiosity has<br><span>no tabs limit.</span></h1><p>A calmer way to explore the web, collect useful sources, and turn browsing into understanding.</p><div class="search"><span>⌕</span><input id="home-search" placeholder="What do you want to understand today?"><button id="search-button">Search ↗</button></div><div class="hero-note">SHREKSEARCH <i></i> LOCAL SUMMARIES <i></i> PERSONAL LIBRARY</div><div class="orb"><b>S</b><small>EXPLORE / SAVE / LEARN</small></div></div>
-<div id="search-section" class="hidden"><div class="section-head"><div><small>SHREKSEARCH</small><h2 id="results-title">Search results</h2><p id="results-meta"></p></div><button id="clear-results">Clear ×</button></div><div id="results" class="results"></div></div>
-<div class="section-head"><div><small>A PLACE TO BEGIN</small><h2>Explore a topic</h2></div><span>Choose a starting point</span></div><div class="topics"><button data-query="programming and software development"><b>⌘</b><strong>Programming</strong><small>Build and understand</small></button><button data-query="science discoveries and physics"><b>✳</b><strong>Science</strong><small>Ask bigger questions</small></button><button data-query="history and civilizations"><b>◷</b><strong>History</strong><small>Explore the past</small></button><button data-query="technology and computing"><b>⌁</b><strong>Technology</strong><small>See what is next</small></button></div><div class="features"><div><b>01 / Knowledge cards</b><small>Useful sources with context and tags.</small></div><div><b>02 / Page briefs</b><small>Extract key ideas from long pages.</small></div><div><b>03 / Personal library</b><small>Keep your best discoveries close.</small></div></div></section>
-<section id="library-view" class="hidden"><div class="eyebrow">YOUR COLLECTION</div><h1>My library<span>.</span></h1><p class="muted">Your saved sources, stored on this device.</p><div class="library-tabs"><button class="active" data-library-tab="cards">Knowledge cards <b id="card-count">0</b></button><button data-library-tab="bookmarks">Bookmarks <b id="bookmark-count">0</b></button></div><div id="library-content" class="results"></div></section></section></main>
-<aside id="custom-panel" class="panel hidden"><button class="close" id="close-custom">×</button><small>PREFERENCES</small><h2>Make it yours</h2><label>Appearance<select id="theme-select"><option value="midnight">Midnight</option><option value="paper">Paper</option><option value="forest">Forest</option></select></label><label>Accent<select id="accent-select"><option value="mint">Mint</option><option value="violet">Violet</option><option value="blue">Blue</option><option value="amber">Amber</option><option value="rose">Rose</option></select></label><label>Density<select id="density-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label><div class="note">Your settings and saved research stay in your local app data folder.</div></aside>
-<aside id="library-panel" class="panel hidden"><button class="close" id="close-library">×</button><small>QUICK ACCESS</small><h2>Saved sources</h2><div id="quick-library"></div><button id="open-full-library" class="primary wide">Open full library ↗</button></aside>
-<aside id="summary-panel" class="panel hidden"><button class="close" id="close-summary">×</button><small>PAGE BRIEF</small><h2 id="summary-title">Reading brief</h2><div id="summary-content">Reading page…</div><div class="note">Local extractive summary — not a generative AI model. Check the original source.</div></aside>
-<aside id="command-palette" class="palette hidden"><input id="command-input" placeholder="Search or type a command"><button data-command="new">＋ New tab</button><button data-command="library">▤ Open library</button><button data-command="settings">⚙ Settings</button><button data-command="crawl">↻ Refresh index</button></aside><div id="toast"></div><script src="renderer.js"></script></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self';img-src 'self' data: https:;connect-src 'self' http://127.0.0.1:8787 https:">
+<meta name="theme-color" content="#0b100e">
+<title>ShrekBook Browser</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="browser-chrome">
+  <div class="tab-row">
+    <div class="brand"><span class="brand-mark">S</span><span class="brand-name">SHREKBOOK <i>BROWSER</i></span></div>
+    <div id="tab-strip" class="tab-strip"></div>
+    <button id="new-tab" class="chrome-icon add-tab" title="New tab (Ctrl+T)">＋</button>
+    <button id="command" class="chrome-icon command-shortcut" title="Command palette (Ctrl+K)">⌘K</button>
+  </div>
+  <div class="toolbar">
+    <div class="nav-actions">
+      <button id="back" class="chrome-icon" title="Back">←</button>
+      <button id="forward" class="chrome-icon" title="Forward">→</button>
+      <button id="reload" class="chrome-icon" title="Reload">↻</button>
+    </div>
+    <div class="omnibox"><span class="omnibox-symbol">⌕</span><input id="omnibox" spellcheck="false" placeholder="Search ShrekSearch or enter a website address"><button id="go">Go <span>↗</span></button></div>
+    <button id="bookmark-current" class="toolbar-button" title="Bookmark current page">☆ <span>Save page</span></button><button id="library-button" class="toolbar-button">▤ <span>Library</span></button>
+    <button id="customize" class="chrome-icon" title="Customize">⚙</button>
+  </div>
+</header>
+
+<div id="home-view" class="app-layout">
+  <aside class="sidebar">
+    <div class="sidebar-section-label">YOUR WORKSPACE</div>
+    <button class="side-link active" data-view="discover"><span class="side-icon">⌂</span>Discover</button>
+    <button class="side-link" data-view="library"><span class="side-icon">▤</span>My library <span id="saved-count" class="side-count">0</span></button>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">SHREKSEARCH</div>
+    <div class="index-status"><span id="status-dot" class="status-dot"></span><div><b id="status-title">Connecting to index</b><small id="status-text">Starting local search…</small></div></div>
+    <button id="crawl" class="side-link"><span class="side-icon">⟳</span>Refresh index</button>
+    <div class="sidebar-bottom">
+      <div class="sidebar-badge">✦ RESEARCH MODE</div>
+      <p>Browse with curiosity. Keep what matters. Build your own knowledge base.</p>
+      <div class="version-line">SHREKBOOK BROWSER <span id="version">1.0</span></div>
+    </div>
+  </aside>
+
+  <main class="workspace">
+    <section id="discover-view">
+      <div class="welcome-line"><span class="live-dot"></span> YOUR PERSONAL RESEARCH SPACE <span id="today-label"></span></div>
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="hero-kicker">WELCOME TO A BETTER WAY TO BROWSE</div>
+          <h1>Explore more.<br><em>Understand everything.</em></h1>
+          <p>ShrekBook brings the open web and your own knowledge together. Find useful sources, turn pages into briefs, and save discoveries for later.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-glyph">S<span>✦</span></div><div class="art-caption">DISCOVER / CONNECT / REMEMBER</div></div>
+      </div>
+
+      <div class="search-block">
+        <div class="search-label">WHAT ARE YOU curious ABOUT?</div>
+        <div class="main-search"><span class="search-icon">⌕</span><input id="home-search" placeholder="Search a topic, question, or idea…" autocomplete="off"><kbd>ENTER ↵</kbd><button id="search-button">Search <span>↗</span></button></div>
+        <div class="search-foot"><span><i></i> POWERED BY YOUR LOCAL SHREKSEARCH INDEX</span><span>PRIVATE · DEVICE-LOCAL</span></div>
+      </div>
+
+      <section id="search-section" class="search-results-section hidden">
+        <div class="section-heading"><div><div class="eyebrow">YOUR RESULTS</div><h2 id="results-title">Search results</h2><p id="results-meta"></p></div><button id="clear-results" class="quiet-button">Clear results ×</button></div>
+        <div id="results" class="result-grid"></div>
+      </section>
+
+      <div class="section-heading explore-heading"><div><div class="eyebrow">QUICK START</div><h2>Pick a direction</h2><p>A few good places to begin exploring.</p></div><span class="heading-note">CURATED TOPICS</span></div>
+      <div class="topic-grid">
+        <button class="topic-card topic-green" data-query="programming software development"><span class="topic-symbol">⌘</span><span class="topic-title">Programming</span><span class="topic-desc">Build, experiment, create</span><span class="topic-arrow">↗</span></button>
+        <button class="topic-card topic-blue" data-query="science physics discoveries"><span class="topic-symbol">✳</span><span class="topic-title">Science</span><span class="topic-desc">Understand how things work</span><span class="topic-arrow">↗</span></button>
+        <button class="topic-card topic-orange" data-query="history civilizations archaeology"><span class="topic-symbol">◷</span><span class="topic-title">History</span><span class="topic-desc">Explore people and the past</span><span class="topic-arrow">↗</span></button>
+        <button class="topic-card topic-purple" data-query="technology computing innovation"><span class="topic-symbol">⌁</span><span class="topic-title">Technology</span><span class="topic-desc">Discover what comes next</span><span class="topic-arrow">↗</span></button>
+      </div>
+      <div class="feature-strip">
+        <div><span class="feature-number">01</span><div><b>Knowledge cards</b><small>Save sources with useful context.</small></div></div>
+        <div><span class="feature-number">02</span><div><b>Page briefs</b><small>Pull the key ideas from long pages.</small></div></div>
+        <div><span class="feature-number">03</span><div><b>Your library</b><small>Keep your discoveries in one place.</small></div></div>
+      </div>
+    </section>
+
+    <section id="library-view" class="library-view hidden">
+      <div class="library-topline"><div class="eyebrow">YOUR PERSONAL KNOWLEDGE BASE</div><button id="library-refresh" class="quiet-button">↻ Refresh</button></div>
+      <h1>My library<span class="accent-period">.</span></h1>
+      <p class="library-intro">A home for the pages and ideas worth keeping.</p>
+      <div class="library-stats"><div><b id="card-count">0</b><span>KNOWLEDGE CARDS</span></div><div><b id="bookmark-count">0</b><span>BOOKMARKS</span></div></div>
+      <div class="library-tabs"><button class="active" data-library-tab="cards">Knowledge cards <b id="card-tab-count">0</b></button><button data-library-tab="bookmarks">Bookmarks <b id="bookmark-tab-count">0</b></button></div>
+      <div id="library-content" class="result-grid"></div>
+    </section>
+  </main>
+</div>
+
+<aside id="custom-panel" class="drawer hidden">
+  <div class="drawer-head"><div><div class="eyebrow">PERSONALIZATION</div><h2>Make it yours</h2></div><button class="close" id="close-custom">×</button></div>
+  <label>Appearance<select id="theme-select"><option value="midnight">Midnight</option><option value="paper">Paper</option><option value="forest">Forest</option></select></label>
+  <label>Accent colour<select id="accent-select"><option value="mint">Mint</option><option value="violet">Violet</option><option value="blue">Blue</option><option value="amber">Amber</option><option value="rose">Rose</option></select></label>
+  <label>Interface density<select id="density-select"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></label>
+  <div class="drawer-note"><b>Your browser, your setup.</b><p>Appearance and saved research are stored locally on this device.</p></div>
+  <button id="check-update" class="drawer-action">Check for updates ↗</button>
+</aside>
+
+<aside id="library-panel" class="drawer hidden">
+  <div class="drawer-head"><div><div class="eyebrow">QUICK ACCESS</div><h2>Saved sources</h2></div><button class="close" id="close-library">×</button></div>
+  <div id="quick-library" class="quick-library"></div>
+  <button id="open-full-library" class="drawer-action">Open full library ↗</button>
+</aside>
+
+<aside id="summary-panel" class="drawer summary-drawer hidden">
+  <div class="drawer-head"><div><div class="eyebrow">READING ASSISTANT</div><h2 id="summary-title">Page brief</h2></div><button class="close" id="close-summary">×</button></div>
+  <div id="summary-content">Preparing your page brief…</div>
+  <div class="drawer-note">This is a local extractive brief, not a generative AI answer. Always check the original source.</div>
+</aside>
+
+<aside id="command-palette" class="command-palette hidden">
+  <div class="palette-title"><span>COMMAND CENTER</span><button id="close-command">ESC</button></div>
+  <input id="command-input" placeholder="Search ShrekSearch or choose an action…" autocomplete="off">
+  <div class="palette-group">QUICK ACTIONS</div>
+  <button data-command="new"><span>＋</span> New tab <kbd>Ctrl T</kbd></button>
+  <button data-command="library"><span>▤</span> Open library</button>
+  <button data-command="settings"><span>⚙</span> Customize browser</button>
+  <button data-command="crawl"><span>⟳</span> Refresh ShrekSearch index</button>
+  <div class="palette-hint">TIP · Press Ctrl + L to jump to the address bar</div>
+</aside>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="renderer.js"></script>
+</body>
+</html>
