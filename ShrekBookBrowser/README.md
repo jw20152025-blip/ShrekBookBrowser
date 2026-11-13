@@ -1,19 +1,17 @@
-# ShrekBook Browser 0.3.0
+# ShrekBook Browser 0.4.0
 
-A research-first desktop browser built with Electron. ShrekBook Browser combines Chromium browsing with a local ShrekSearch index, knowledge cards, page briefs, bookmarks and a personal research library.
+ShrekBook Browser is a Windows desktop browser built with Electron. It combines multi-tab Chromium browsing with a research workspace powered by your own local ShrekSearch index.
 
 ## Run on Windows
 
-Use Node.js 20.19 or newer. Open PowerShell in this folder (the folder containing this file), then run:
+Install Node.js 20.19 or newer. Open PowerShell in the folder containing this README and run:
 
 ```powershell
 npm ci
 npm run dev
 ```
 
-If dependencies are already installed, start directly with `npm run dev`.
-
-## Build
+## Build installers
 
 ```powershell
 npm run build
@@ -22,24 +20,35 @@ npm run build:portable
 
 Build output is written to `dist/`.
 
-## Included systems
+## Browser features
 
-- Multi-tab Chromium browsing with address bar, navigation controls and keyboard shortcuts.
-- Local ShrekSearch service on `127.0.0.1:8787`.
-- Search results presented as knowledge cards.
-- Local page briefs that extract representative sentences from a readable page.
-- Device-local bookmarks and saved knowledge cards.
-- Appearance controls for Midnight, Paper and Forest themes, accent colours and compact density.
-- Persistent settings and research data stored in Electron's user-data directory.
+- Multi-tab Chromium browsing, address bar, back/forward/reload, and keyboard shortcuts.
+- A rebuilt research home with topic shortcuts and an integrated ShrekSearch interface.
+- ShrekSearch results displayed as source cards with descriptions and tags.
+- Page briefs that extract representative sentences from readable pages.
+- Save search results as knowledge cards.
+- Bookmark search results or the currently open webpage.
+- A persistent local library with separate knowledge-card and bookmark collections.
+- Midnight, Paper, and Forest appearance themes, five accent colours, and compact density.
+- Command palette (`Ctrl+K`), address bar shortcut (`Ctrl+L`), and new-tab shortcut (`Ctrl+T`).
+- Local index refresh through the ShrekSearch crawler.
+- GitHub-based app update checks in packaged builds.
 
 ## ShrekSearch
 
-The local search service exposes `/api/health`, `/api/search`, `/api/scrape` and `POST /api/crawl`. Configure the crawler's seed and policy files under `search/` before crawling. The crawler follows its configured limits and robots rules.
+The local service runs on `127.0.0.1:8787` and provides:
 
-## Data and privacy
+- `GET /api/health`
+- `GET /api/search?q=...`
+- `GET /api/scrape?url=...`
+- `POST /api/crawl`
 
-Settings, search index data, bookmarks and knowledge cards are stored locally in Electron's per-user application data directory. They are not written into the source repository.
+Configure crawler seeds and policy limits under `search/`. The crawler respects each site's robots.txt rules and configured crawl limits.
+
+## Local data and privacy
+
+Browser settings, the search index, bookmarks, and knowledge cards are stored in Electron's per-user application data directory. They are not committed to this repository.
 
 ## Page briefs
 
-Page briefs are local extractive summaries, not a hosted or neural generative AI model. They select representative sentences from page text. Always verify important details against the original source.
+Page briefs are local extractive summaries, not a generative AI model. They select representative sentences from the page text. Verify important details against the original source.
