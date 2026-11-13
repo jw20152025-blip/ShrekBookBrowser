@@ -298,7 +298,7 @@ $('search-button').addEventListener('click', () => runSearch($('home-search').va
 $('home-search').addEventListener('keydown', event => {
   if (event.key === 'Enter') runSearch(event.target.value);
 });
-$('library-button').addEventListener('click', async () => {
+$('bookmark-current').addEventListener('click', async () => {\n  try {\n    const url = await api.getUrl();\n    const safe = safeUrl(url);\n    if (!safe) return toast('Open a webpage before saving a bookmark.');\n    await api.saveBookmark({ url: safe, title: safe, domain: new URL(safe).hostname });\n    await refreshLibrary();\n    toast('Current page bookmarked');\n  } catch (error) { toast('Could not save bookmark: ' + error.message); }\n});\n$('library-button').addEventListener('click', async () => {
   closeDrawers('library-panel');
   await refreshLibrary();
   showPanel('library-panel');
